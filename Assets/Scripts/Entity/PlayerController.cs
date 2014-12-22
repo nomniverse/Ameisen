@@ -3,24 +3,26 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	public bool playerEnabled = true;		// Controller enabled
-	public static float playerHealth = 100f;
+	public bool playerEnabled = true;			// Controller enabled
+	public static float playerHealth = 100f;	// Player health (starts at 100 automatically)
 
-	public float speed = 1.0f;		// Player movement speed
-	private Vector3 entityPosition;		// Position of the player
-	private Vector3 playerDirection;		// Direction of the player
+	public float speed = 1.0f;					// Player movement speed
+	private Vector3 entityPosition;				// Position of the player
+	private Vector3 playerDirection;			// Direction of the player
 	
-	public float cooldown = 10;		// Cooldown on block editing
-	private float count = 0;	// Count of current cooling down
+	public float cooldown = 10;					// Cooldown on block editing
+	private float count = 0;					// Count of current cooling down
 
-	public GameObject blockToPlace;		// What block to place
-	private Vector3 blockPosition;		// Position to place a block
-	public GameObject destroyable;		// Used for block deletion
-	public bool allowEdit = true;		// Allows the player to place blocks or shoot
+	public GameObject blockToPlace;				// What block to place
+	private Vector3 blockPosition;				// Position to place a block
+	public GameObject destroyable;				// Used for block deletion
+	public bool allowEdit = true;				// Allows the player to place blocks or shoot
+	
+	Inventory inventory;
 
 	// Use this for initialization
 	void Start () {
-	
+		inventory = GameObject.FindGameObjectWithTag ("Inventory").GetComponent<Inventory>();
 	}
 	
 	// Update is called once per frame
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour {
 			movePlayer ();
 			rotatePlayer ();
 			toggleMouseMode ();
+			ToggleInventory ();
 			if (allowEdit) {
 					addBlock ();
 			} else {
@@ -74,7 +77,7 @@ public class PlayerController : MonoBehaviour {
 	private void addBlock() {
 		if (count > cooldown) {
 			if (Input.GetMouseButton(1) && allowEdit) {
-				createBlock();
+				createBlock(3);
 				count = 0;
 			}
 		} else {
@@ -82,10 +85,17 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	private void createBlock() {
-		blockPosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		blockPosition.z = 0;
-		Instantiate (blockToPlace, blockPosition, Quaternion.identity);
+	private void createBlock(int id) {
+		for (int i = 0; i < inventory.Items.Count; i++) {
+			if (inventory.Items[i].itemID == id) {
+				
+				blockPosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+				blockPosition.z = 0;
+				Instantiate (blockToPlace, blockPosition, Quaternion.identity);
+				inventory.Items[i].itemValue--;
+				break;
+			}
+		}
 	}
 
 	private void Shoot() {
@@ -105,6 +115,13 @@ public class PlayerController : MonoBehaviour {
 		if (playerHealth <= 0f) {
 			playerEnabled = false;
 			Destroy(gameObject);
+		}
+	}
+	
+	private void ToggleInventory() {
+		if (Input.GetKeyDown (KeyCode.Tab)) {
+			inventory.shown = !inventory.shown;
+			allowEdit = !allowEdit;
 		}
 	}
 

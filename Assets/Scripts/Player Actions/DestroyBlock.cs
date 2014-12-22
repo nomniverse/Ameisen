@@ -8,10 +8,11 @@ public class DestroyBlock : MonoBehaviour {
 	public bool allowEdit = true;
 
 	public GameObject destroyable;
+	Inventory inventory;
 
 	// Use this for initialization
 	void Start () {
-	
+		inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
 	}
 	
 	// Update is called once per frame
@@ -32,6 +33,7 @@ public class DestroyBlock : MonoBehaviour {
 		if (hit) {
 			if (hit.collider.gameObject.Equals (destroyable)) {
 				Destroy (hit.collider.gameObject);
+				inventory.AddItem (3);
 			}
 		}
 	}
