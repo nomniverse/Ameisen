@@ -73,6 +73,7 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
+    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &318896970
 GameObject:
@@ -1141,6 +1142,8 @@ MonoBehaviour:
   blockToPlace: {fileID: 100000, guid: 9456484702dfa8f489eee109318ebd6d, type: 2}
   destroyable: {fileID: 100000, guid: 9456484702dfa8f489eee109318ebd6d, type: 2}
   allowEdit: 1
+  bullet: {fileID: 120028, guid: 6c4fc62ca162bd547be8f381b9d0472c, type: 2}
+  rotation: {x: 0, y: 0, z: 0}
 --- !u!212 &1788381575
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1739,9 +1742,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295

@@ -86,6 +86,8 @@ MonoBehaviour:
   blockToPlace: {fileID: 100000, guid: 9456484702dfa8f489eee109318ebd6d, type: 2}
   destroyable: {fileID: 100000, guid: 9456484702dfa8f489eee109318ebd6d, type: 2}
   allowEdit: 1
+  bullet: {fileID: 120028, guid: 6c4fc62ca162bd547be8f381b9d0472c, type: 2}
+  rotation: {x: 0, y: 0, z: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

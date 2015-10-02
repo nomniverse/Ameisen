@@ -14,9 +14,11 @@ public class ZombieController : MonoBehaviour {
 
 	public GameObject target;
 
+	public Random randomNumber;
+
 	// Use this for initialization
 	void Start () {
-
+		randomNumber = new Random ();
 	}
 	
 	// Update is called once per frame
@@ -35,6 +37,7 @@ public class ZombieController : MonoBehaviour {
 		// Determines the direction that the zombie must move towards
 		direction = targetPosition - entityPosition;
 		direction.z = 0;
+
 		direction.Normalize ();
 		
 		// Make the zombie move

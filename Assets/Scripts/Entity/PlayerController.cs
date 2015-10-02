@@ -17,6 +17,10 @@ public class PlayerController : MonoBehaviour {
 	private Vector3 blockPosition;				// Position to place a block
 	public GameObject destroyable;				// Used for block deletion
 	public bool allowEdit = true;				// Allows the player to place blocks or shoot
+
+	public GameObject bullet;
+
+	public Vector3 rotation;
 	
 	Inventory inventory;
 
@@ -46,26 +50,27 @@ public class PlayerController : MonoBehaviour {
 
 	private void movePlayer() {
 		if (Input.GetKey (KeyCode.W) || Input.GetKey (KeyCode.UpArrow)) {
-			rigidbody2D.transform.position += Vector3.up * Time.deltaTime * speed;
+			GetComponent<Rigidbody2D>().transform.position += Vector3.up * Time.deltaTime * speed;
 		}
 		
 		if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) {
-			rigidbody2D.transform.position += Vector3.left * Time.deltaTime * speed;
+			GetComponent<Rigidbody2D>().transform.position += Vector3.left * Time.deltaTime * speed;
 		}
 		
 		if (Input.GetKey (KeyCode.S) || Input.GetKey (KeyCode.DownArrow)) {
-			rigidbody2D.transform.position += Vector3.down * Time.deltaTime * speed;
+			GetComponent<Rigidbody2D>().transform.position += Vector3.down * Time.deltaTime * speed;
 		}
 		
 		if (Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.RightArrow)) {
-			rigidbody2D.transform.position += Vector3.right * Time.deltaTime * speed;
+			GetComponent<Rigidbody2D>().transform.position += Vector3.right * Time.deltaTime * speed;
 		}
 	}
 
 	private void rotatePlayer() {
 		entityPosition = Camera.main.WorldToScreenPoint (transform.position);
 		playerDirection = Input.mousePosition - entityPosition;
-		rigidbody2D.transform.rotation = Quaternion.Euler (new Vector3 (0, 0, Mathf.Atan2 (playerDirection.y, playerDirection.x) * Mathf.Rad2Deg));
+		rotation = new Vector3 (0, 0, Mathf.Atan2 (playerDirection.y, playerDirection.x));
+		GetComponent<Rigidbody2D>().transform.rotation = Quaternion.Euler (rotation * Mathf.Rad2Deg);
 	}
 
 	private void toggleMouseMode() {
@@ -99,16 +104,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void Shoot() {
-		float shotDistance = 20;
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		RaycastHit2D hit = Physics2D.Raycast (ray.origin, ray.direction, shotDistance);
-
-		if (hit) {
-			if (hit.collider.gameObject.tag.Equals ("Hostile")) {
-				ZombieController zombie = (ZombieController) hit.collider.gameObject.GetComponent ("ZombieController");
-				zombie.TakeDamage(10);
-			}
-		}
+		Vector3 bulletPosition = new Vector3 (GetComponent<Rigidbody2D>().transform.position.x, GetComponent<Rigidbody2D>().transform.position.y, 0);
+		Instantiate (bullet, bulletPosition, Quaternion.identity);
 	}
 
 	private void CheckForDeath() {
