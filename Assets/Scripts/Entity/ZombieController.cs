@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ZombieController : MonoBehaviour {
 
-	public static float zombieHealth = 100f;
+	private float zombieHealth = 100f;
 
 	public float speed = 4.0f;
 	public float turnSpeed = 4.0f;
@@ -22,12 +22,12 @@ public class ZombieController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		CheckForDeath ();
+	void FixedUpdate () {
 		FollowPlayer ();
 		RotateToPlayer ();
+        CheckForDeath();
 
-	}
+    }
 
 	private void FollowPlayer() {
 		// Assigns values to each position vector
@@ -53,11 +53,12 @@ public class ZombieController : MonoBehaviour {
 
 	private void CheckForDeath() {
 		if (zombieHealth <= 0f) {
-			Destroy (gameObject);
+			Destroy (this.gameObject);
 		}
 	}
 
 	public void TakeDamage(float amount) {
 		zombieHealth -= amount;
+        Debug.Log(zombieHealth);
 	}
 }
