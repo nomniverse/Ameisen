@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 	public bool allowEdit = true;				// Allows the player to place blocks or shoot
 
 	public GameObject bullet;
+    public float shootCooldown = 10f;
 
 	public Vector3 rotation;
 	
@@ -37,11 +38,20 @@ public class PlayerController : MonoBehaviour {
 			toggleMouseMode ();
 			ToggleInventory ();
 			if (allowEdit) {
-					addBlock ();
+				addBlock ();
 			} else {
-					if (Input.GetMouseButton (1)) {
-							Shoot ();
-					}
+                if (count > shootCooldown)
+                {
+                    if (Input.GetMouseButton(1))
+                    {
+                        Shoot();
+                        count = 0;
+                    }
+                }
+                else
+                {
+                    count += 1f;
+                }
 			}
 		} else {
 		}
@@ -104,18 +114,20 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void Shoot() {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (hit.transform != null && hit.transform.CompareTag("Hostile"))
-        {
-            try
-            {
-                hit.transform.GetComponent<ZombieController>().TakeDamage(5);
-            }
-            catch (System.Exception)
-            {
-                Debug.Log("WTF");
-            }
-        }
+        Vector3 bulletPosition = new Vector3(GetComponent<Rigidbody2D>().transform.position.x, GetComponent<Rigidbody2D>().transform.position.y, 0);
+        Instantiate(bullet, bulletPosition, Quaternion.identity);
+        //RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        //if (hit.transform != null && hit.transform.CompareTag("Hostile"))
+        //{
+        //    try
+        //    {
+        //        hit.transform.GetComponent<ZombieController>().TakeDamage(5);
+        //    }
+        //    catch (System.Exception)
+        //    {
+        //        Debug.Log("WTF");
+        //    }
+        //}
     }
 
     private void CheckForDeath() {

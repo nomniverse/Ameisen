@@ -25,8 +25,6 @@ public class ZombieController : MonoBehaviour {
 	void FixedUpdate () {
 		FollowPlayer ();
 		RotateToPlayer ();
-        CheckForDeath();
-
     }
 
 	private void FollowPlayer() {
@@ -60,5 +58,7 @@ public class ZombieController : MonoBehaviour {
 	public void TakeDamage(float amount) {
 		zombieHealth -= amount;
         Debug.Log(zombieHealth);
-	}
+
+        CheckForDeath();
+    }
 }

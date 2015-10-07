@@ -3,29 +3,32 @@ using System.Collections;
 
 public class BulletController : MonoBehaviour {
 
-	private Vector3 direction;
+    public int damage = 1;
+    public int range = 20;
+    public float speed = 2000000000000.0f;
 
-	public GameObject shooter;
+    private Vector3 bulletPosition;
+    private Vector3 targetPosition;
 
-	public float speed;
-
-	Ray ray;
+    public bool foundEnemy = false;
 
 	// Use this for initialization
 	void Start () {
-		ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		direction = shooter.GetComponent<PlayerController>().rotation;
-	}
+        bulletPosition = transform.position;
+        targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        targetPosition.z = transform.position.z;
+        Destroy(this.gameObject, range);
+    }
 
 	// Update is called once per frame
 	void Update () {
-		transform.position += ray.direction * Time.deltaTime * speed;
-	}
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+    }
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.gameObject.tag.Equals ("Hostile")) {
-			Destroy (other.gameObject);
-			Destroy (this);
-		}
+            other.transform.GetComponent<ZombieController>().TakeDamage(5);
+            Destroy(this.gameObject);
+        }
 	}
 }
