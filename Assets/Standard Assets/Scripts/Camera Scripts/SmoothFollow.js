@@ -22,6 +22,9 @@ var rotationDamping = 3.0;
 // Place the script in the Camera-Control group in the component menu
 @script AddComponentMenu("Camera-Control/Smooth Follow")
 
+function Start() {
+	target = GameObject.FindGameObjectWithTag("Player").GetComponent(Transform);
+}
 
 function LateUpdate () {
 	// Early out if we don't have a target

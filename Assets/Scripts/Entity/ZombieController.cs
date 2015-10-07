@@ -19,6 +19,7 @@ public class ZombieController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		randomNumber = new Random ();
+        target = GameObject.FindGameObjectWithTag("Player");
 	}
 	
 	// Update is called once per frame
