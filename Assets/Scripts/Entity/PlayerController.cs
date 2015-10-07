@@ -4,14 +4,14 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	public bool playerEnabled = true;			// Controller enabled
-	public static float playerHealth = 100f;	// Player health (starts at 100 automatically)
+	public float playerHealth = 100f;	// Player health (starts at 100 automatically)
 
 	public float speed = 1.0f;					// Player movement speed
 	private Vector3 entityPosition;				// Position of the player
 	private Vector3 playerDirection;			// Direction of the player
 	
-	public float cooldown = 10;					// Cooldown on block editing
-	private float count = 0;					// Count of current cooling down
+	public float blockCooldown = 10;			// Cooldown on block editing
+	private float blockCooldownCount = 0;					// Count of current cooling down
 
 	public GameObject blockToPlace;				// What block to place
 	private Vector3 blockPosition;				// Position to place a block
@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 
 	public GameObject bullet;
     public float shootCooldown = 10f;
+    private float shootCooldownCount = 0;
 
 	public Vector3 rotation;
 	
@@ -37,25 +38,30 @@ public class PlayerController : MonoBehaviour {
 			rotatePlayer ();
 			toggleMouseMode ();
 			ToggleInventory ();
-			if (allowEdit) {
-				addBlock ();
-			} else {
-                if (count > shootCooldown)
+
+            if (Input.GetMouseButton(1))
+            {
+                if (allowEdit)
                 {
-                    if (Input.GetMouseButton(1))
+                    if (blockCooldownCount > blockCooldown)
                     {
-                        Shoot();
-                        count = 0;
+                        addBlock();
+                        blockCooldownCount = 0;
                     }
                 }
                 else
                 {
-                    count += 1f;
+                    if (shootCooldownCount > shootCooldown)
+                    {
+                        Shoot();
+                        shootCooldownCount = 0;
+                    }
                 }
-			}
-		} else {
+            }
+            blockCooldownCount += 1f;
+            shootCooldownCount += 1f;
+        } else {
 		}
-		CheckForDeath ();
 	}
 
 	private void movePlayer() {
@@ -90,14 +96,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void addBlock() {
-		if (count > cooldown) {
-			if (Input.GetMouseButton(1) && allowEdit) {
-				createBlock(3);
-				count = 0;
-			}
-		} else {
-			count += 1f;
-		}
+        createBlock(3);
 	}
 
 	private void createBlock(int id) {
@@ -129,13 +128,6 @@ public class PlayerController : MonoBehaviour {
         //    }
         //}
     }
-
-    private void CheckForDeath() {
-		if (playerHealth <= 0f) {
-			playerEnabled = false;
-			Destroy(gameObject);
-		}
-	}
 	
 	private void ToggleInventory() {
 		if (Input.GetKeyDown (KeyCode.Tab)) {
@@ -146,7 +138,13 @@ public class PlayerController : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.gameObject.tag.Equals ("Hostile")) {
-			playerHealth -= 10;
-		}
+			playerHealth -= 5;
+
+            if (playerHealth <= 0f)
+            {
+                playerEnabled = false;
+                this.gameObject.AddComponent<GameOver>();
+            }
+        }
 	}
 }
