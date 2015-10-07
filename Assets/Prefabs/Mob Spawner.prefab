@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063b2ccbd0c5fb7409ea6dbe6e077297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mob: {fileID: 0}
+  mob: {fileID: 100000, guid: e629383ca7b69ef46b2ae7a9a7fcb9ca, type: 2}
   cooldown: 20
 --- !u!1001 &100100000
 Prefab:
