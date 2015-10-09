@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour {
                     if (shootCooldownCount > shootCooldown)
                     {
                         //Shoot(inventory.getEquippedItem());
-                        Shoot(new Item("test", 1, "hitscan", 0, 0, 0, Item.ItemType.Weapon));
+                        Shoot(new Item("test", 1, "projectile", 0, 0, 0, Item.ItemType.Weapon));
                         shootCooldownCount = 0;
                     }
                 }

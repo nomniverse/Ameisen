@@ -4,31 +4,40 @@ using System.Collections;
 public class BulletController : MonoBehaviour {
 
     public int damage = 1;
-    public int range = 20;
-    public float speed = 2000000000000.0f;
+    public float range = 20f;
+    public float speed = 2000.0f;
 
     private Vector3 bulletPosition;
     private Vector3 targetPosition;
 
     public bool foundEnemy = false;
 
+    private int count;
+
 	// Use this for initialization
 	void Start () {
         bulletPosition = transform.position;
         targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         targetPosition.z = transform.position.z;
-        Destroy(this.gameObject, range);
+        this.GetComponent<Rigidbody2D>().velocity = (targetPosition - bulletPosition) * speed;
     }
 
 	// Update is called once per frame
 	void Update () {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        if (Mathf.Sqrt(((transform.position.x - bulletPosition.x) * (transform.position.x - bulletPosition.x)) + 
+            ((transform.position.y - bulletPosition.y) * (transform.position.y - bulletPosition.y))) >= range)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.gameObject.tag.Equals ("Hostile")) {
             other.transform.GetComponent<ZombieController>().TakeDamage(5);
             Destroy(this.gameObject);
-        }
+        } else if (other.gameObject.tag.Equals("Block"))
+        {
+            Destroy(this.gameObject);
+        } else { }
 	}
 }
