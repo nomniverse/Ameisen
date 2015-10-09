@@ -53,7 +53,8 @@ public class PlayerController : MonoBehaviour {
                 {
                     if (shootCooldownCount > shootCooldown)
                     {
-                        Shoot();
+                        //Shoot(inventory.getEquippedItem());
+                        Shoot(new Item("test", 1, "projectile", 0, 0, 0, Item.ItemType.Weapon));
                         shootCooldownCount = 0;
                     }
                 }
@@ -112,21 +113,33 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	private void Shoot() {
-        Vector3 bulletPosition = new Vector3(GetComponent<Rigidbody2D>().transform.position.x, GetComponent<Rigidbody2D>().transform.position.y, 0);
-        Instantiate(bullet, bulletPosition, Quaternion.identity);
-        //RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        //if (hit.transform != null && hit.transform.CompareTag("Hostile"))
-        //{
-        //    try
-        //    {
-        //        hit.transform.GetComponent<ZombieController>().TakeDamage(5);
-        //    }
-        //    catch (System.Exception)
-        //    {
-        //        Debug.Log("WTF");
-        //    }
-        //}
+	private void Shoot(Item item) {
+        if (item.itemType == Item.ItemType.Weapon)
+        {
+            switch (item.itemDesc)
+            {
+                case "hitscan":
+                    RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                    if (hit.transform != null && hit.transform.CompareTag("hostile"))
+                    {
+                        try
+                        {
+                            hit.transform.GetComponent<ZombieController>().TakeDamage(5);
+                        }
+                        catch (System.Exception)
+                        {
+                            Debug.Log("wtf");
+                        }
+                    }
+                    break;
+                case "projectile":
+                    Vector3 bulletPosition = new Vector3(GetComponent<Rigidbody2D>().transform.position.x, GetComponent<Rigidbody2D>().transform.position.y, 0);
+                    Instantiate(bullet, bulletPosition, Quaternion.identity);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 	
 	private void ToggleInventory() {

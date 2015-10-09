@@ -12,7 +12,7 @@ public class ZombieController : MonoBehaviour {
 	private Vector3 targetPosition;
 	private Vector3 direction;
 
-	public GameObject target;
+	private GameObject target;
 
 	public Random randomNumber;
 
@@ -24,7 +24,8 @@ public class ZombieController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		FollowPlayer ();
+        target = GameObject.FindGameObjectWithTag("Player");
+        FollowPlayer ();
 		RotateToPlayer ();
     }
 
