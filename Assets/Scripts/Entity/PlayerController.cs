@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour {
                     if (shootCooldownCount > shootCooldown)
                     {
                         //Shoot(inventory.getEquippedItem());
-                        Shoot(new Item("test", 1, "projectile", 0, 0, 0, Item.ItemType.Weapon));
+                        Shoot(new Item("test", 1, "hitscan", 0, 0, 0, Item.ItemType.Weapon));
                         shootCooldownCount = 0;
                     }
                 }
@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour {
             {
                 case "hitscan":
                     RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-                    if (hit.transform != null && hit.transform.CompareTag("hostile"))
+                    if (hit.transform != null && hit.transform.CompareTag("Hostile"))
                     {
                         try
                         {
