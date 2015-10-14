@@ -12,8 +12,6 @@ public class BulletController : MonoBehaviour {
 
     public bool foundEnemy = false;
 
-    private int count;
-
 	// Use this for initialization
 	void Start () {
         bulletPosition = transform.position;
