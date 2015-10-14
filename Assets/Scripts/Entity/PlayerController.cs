@@ -24,11 +24,11 @@ public class PlayerController : MonoBehaviour {
 
 	public Vector3 rotation;
 	
-	Inventory inventory;
+	//Inventory inventory;
 
 	// Use this for initialization
 	void Start () {
-		inventory = GameObject.FindGameObjectWithTag ("Inventory").GetComponent<Inventory>();
+		//inventory = GameObject.FindGameObjectWithTag ("Inventory").GetComponent<Inventory>();
 	}
 	
 	// Update is called once per frame
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour {
 			movePlayer ();
 			rotatePlayer ();
 			toggleMouseMode ();
-			ToggleInventory ();
+			//ToggleInventory ();
 
             if (Input.GetMouseButton(1))
             {
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour {
                     if (shootCooldownCount > shootCooldown)
                     {
                         //Shoot(inventory.getEquippedItem());
-                        Shoot(new Item("test", 1, "projectile", 0, 0, 0, Item.ItemType.Weapon));
+                        //Shoot(new Item("test", 1, "projectile", 0, 0, 0, Item.ItemType.Weapon));
                         shootCooldownCount = 0;
                     }
                 }
@@ -101,63 +101,65 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void createBlock(int id) {
-		for (int i = 0; i < inventory.Items.Count; i++) {
-			if (inventory.Items[i].itemID == id) {
+		//for (int i = 0; i < inventory.Items.Count; i++) {
+		//	if (inventory.Items[i].ID == id) {
 				
 				blockPosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 				blockPosition.z = 0;
 				Instantiate (blockToPlace, blockPosition, Quaternion.identity);
-				inventory.Items[i].itemValue--;
-				break;
-			}
-		}
-	}
+			//	inventory.Items[i].itemValue--;
+			//	break;
+			//}
+		//}
+}
 
-	private void Shoot(Item item) {
-        if (item.itemType == Item.ItemType.Weapon)
+//private void Shoot(Item item) {
+//       if (item.itemType == Item.ItemType.Weapon)
+//       {
+//           switch (item.itemDesc)
+//           {
+//               case "hitscan":
+//                   RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+//                   if (hit.transform != null && hit.transform.CompareTag("Hostile"))
+//                   {
+//                       try
+//                       {
+//                           hit.transform.GetComponent<ZombieController>().TakeDamage(5);
+//                       }
+//                       catch (System.Exception)
+//                       {
+//                           Debug.Log("wtf");
+//                       }
+//                   }
+//                   break;
+//               case "projectile":
+//                   Vector3 bulletPosition = new Vector3(GetComponent<Rigidbody2D>().transform.position.x, GetComponent<Rigidbody2D>().transform.position.y, 0);
+//                   Instantiate(bullet, bulletPosition, Quaternion.identity);
+//                   break;
+//               default:
+//                   break;
+//           }
+//       }
+//   }
+
+//private void ToggleInventory() {
+//	if (Input.GetKeyDown (KeyCode.Tab)) {
+//		inventory.shown = !inventory.shown;
+//		allowEdit = !allowEdit;
+//	}
+//}
+
+void OnTriggerEnter2D(Collider2D other)
+{
+    if (other.gameObject.tag.Equals("Hostile"))
+    {
+        playerHealth -= 5;
+
+        if (playerHealth <= 0f)
         {
-            switch (item.itemDesc)
-            {
-                case "hitscan":
-                    RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-                    if (hit.transform != null && hit.transform.CompareTag("Hostile"))
-                    {
-                        try
-                        {
-                            hit.transform.GetComponent<ZombieController>().TakeDamage(5);
-                        }
-                        catch (System.Exception)
-                        {
-                            Debug.Log("wtf");
-                        }
-                    }
-                    break;
-                case "projectile":
-                    Vector3 bulletPosition = new Vector3(GetComponent<Rigidbody2D>().transform.position.x, GetComponent<Rigidbody2D>().transform.position.y, 0);
-                    Instantiate(bullet, bulletPosition, Quaternion.identity);
-                    break;
-                default:
-                    break;
-            }
+            playerEnabled = false;
+            this.gameObject.AddComponent<GameOver>();
         }
     }
-	
-	private void ToggleInventory() {
-		if (Input.GetKeyDown (KeyCode.Tab)) {
-			inventory.shown = !inventory.shown;
-			allowEdit = !allowEdit;
-		}
-	}
-
-	void OnTriggerEnter2D (Collider2D other) {
-		if (other.gameObject.tag.Equals ("Hostile")) {
-			playerHealth -= 5;
-
-            if (playerHealth <= 0f)
-            {
-                playerEnabled = false;
-                this.gameObject.AddComponent<GameOver>();
-            }
-        }
-	}
+}
 }
