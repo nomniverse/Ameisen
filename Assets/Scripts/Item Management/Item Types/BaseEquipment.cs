@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class BaseEquipment : BaseStatItem {
 
 	public enum EquipmentType
@@ -11,18 +12,7 @@ public class BaseEquipment : BaseStatItem {
         Feet
     }
 
-    private EquipmentType eType;
-    private int effectID;
+    public EquipmentType equipmentType { get; set; }
 
-    public EquipmentType equipmentType
-    {
-        get { return eType; }
-        set { eType = value; }
-    }
-
-    public int spellEffectID
-    {
-        get { return effectID; }
-        set { effectID = value; }
-    }
+    public int spellEffectID { get; set; }
 }

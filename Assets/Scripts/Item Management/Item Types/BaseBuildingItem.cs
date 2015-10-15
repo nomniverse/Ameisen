@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class BaseBuildingItem : BaseItem {
 
 	public enum BuildingItemType
@@ -9,11 +10,5 @@ public class BaseBuildingItem : BaseItem {
         Furniture
     }
 
-    private BuildingItemType bType;
-
-    public BuildingItemType buildingItemType
-    {
-        get { return bType; }
-        set { bType = value; }
-    }
+    public BuildingItemType buildingItemType { get; set; }
 }

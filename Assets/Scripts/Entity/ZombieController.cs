@@ -54,6 +54,7 @@ public class ZombieController : MonoBehaviour {
 	private void CheckForDeath() {
 		if (zombieHealth <= 0f) {
 			Destroy (this.gameObject);
+            IncreaseExperience.AddXP();
 		}
 	}
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class BaseConsumerable : BaseStatItem {
 
 	public enum ConsumerableType
@@ -10,18 +11,7 @@ public class BaseConsumerable : BaseStatItem {
         Drink
     }
 
-    private ConsumerableType cType;
-    private int effectID;
+    public ConsumerableType consumerableType { get; set; }
 
-    public ConsumerableType consumerableType
-    {
-        get { return cType; }
-        set { cType = value; }
-    }
-
-    public int spellEffectID
-    {
-        get { return effectID; }
-        set { effectID = value; }
-    }
+    public int spellEffectID { get; set; }
 }

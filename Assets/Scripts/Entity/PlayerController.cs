@@ -10,18 +10,21 @@ public class PlayerController : MonoBehaviour {
 	private Vector3 entityPosition;				// Position of the player
 	private Vector3 playerDirection;			// Direction of the player
 	
-	public float blockCooldown = 10;			// Cooldown on block editing
-	private float blockCooldownCount = 0;					// Count of current cooling down
+	public float buildCooldown = 10f;			// Cooldown on block building
+	private float buildCooldownCount = 0f;		// Count of current building cooldown
 
-	public GameObject blockToPlace;				// What block to place
+    public float shootCooldown = 10f;           // Cooldown on shooting
+    private float shootCooldownCount = 0f;      // Count of current shooting cooldown
+
+    public float destroyCooldown = 10f;         // Cooldown on block destruction
+    private float destroyCooldownCount = 0f;    // Count of current destruction cooldown
+
+    public GameObject blockToPlace;				// What block to place
 	private Vector3 blockPosition;				// Position to place a block
-	public GameObject destroyable;				// Used for block deletion
 	public bool allowEdit = true;				// Allows the player to place blocks or shoot
 
 	public GameObject bullet;
-    public float shootCooldown = 10f;
-    private float shootCooldownCount = 0;
-
+    
 	public Vector3 rotation;
 	
 	//Inventory inventory;
@@ -43,10 +46,10 @@ public class PlayerController : MonoBehaviour {
             {
                 if (allowEdit)
                 {
-                    if (blockCooldownCount > blockCooldown)
+                    if (buildCooldownCount > buildCooldown)
                     {
                         addBlock();
-                        blockCooldownCount = 0;
+                        buildCooldownCount = 0;
                     }
                 }
                 else
@@ -59,27 +62,44 @@ public class PlayerController : MonoBehaviour {
                     }
                 }
             }
-            blockCooldownCount += 1f;
+
+            if (Input.GetMouseButton(0))
+            {
+                if (allowEdit)
+                {
+                    if (destroyCooldownCount > destroyCooldown)
+                    {
+                        DestroyBlock();
+                        destroyCooldownCount = 0;
+                    }
+                }
+                else
+                {
+                    // TODO Left Mouse Shoot Action
+                }
+            }
+
+            destroyCooldownCount += 1f;
+            buildCooldownCount += 1f;
             shootCooldownCount += 1f;
-        } else {
-		}
-	}
+        } else { }
+    }
 
 	private void movePlayer() {
 		if (Input.GetKey (KeyCode.W) || Input.GetKey (KeyCode.UpArrow)) {
-			GetComponent<Rigidbody2D>().transform.position += Vector3.up * Time.deltaTime * speed;
+			transform.position += Vector3.up * Time.deltaTime * speed;
 		}
 		
 		if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) {
-			GetComponent<Rigidbody2D>().transform.position += Vector3.left * Time.deltaTime * speed;
+			transform.position += Vector3.left * Time.deltaTime * speed;
 		}
 		
 		if (Input.GetKey (KeyCode.S) || Input.GetKey (KeyCode.DownArrow)) {
-			GetComponent<Rigidbody2D>().transform.position += Vector3.down * Time.deltaTime * speed;
+			transform.position += Vector3.down * Time.deltaTime * speed;
 		}
 		
 		if (Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.RightArrow)) {
-			GetComponent<Rigidbody2D>().transform.position += Vector3.right * Time.deltaTime * speed;
+			transform.position += Vector3.right * Time.deltaTime * speed;
 		}
 	}
 
@@ -111,45 +131,60 @@ public class PlayerController : MonoBehaviour {
 			//	break;
 			//}
 		//}
-}
+    }
 
-//private void Shoot(Item item) {
-//       if (item.itemType == Item.ItemType.Weapon)
-//       {
-//           switch (item.itemDesc)
-//           {
-//               case "hitscan":
-//                   RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-//                   if (hit.transform != null && hit.transform.CompareTag("Hostile"))
-//                   {
-//                       try
-//                       {
-//                           hit.transform.GetComponent<ZombieController>().TakeDamage(5);
-//                       }
-//                       catch (System.Exception)
-//                       {
-//                           Debug.Log("wtf");
-//                       }
-//                   }
-//                   break;
-//               case "projectile":
-//                   Vector3 bulletPosition = new Vector3(GetComponent<Rigidbody2D>().transform.position.x, GetComponent<Rigidbody2D>().transform.position.y, 0);
-//                   Instantiate(bullet, bulletPosition, Quaternion.identity);
-//                   break;
-//               default:
-//                   break;
-//           }
-//       }
-//   }
+    void DestroyBlock()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+        if (hit)
+        {
+            if (hit.collider.gameObject.tag == "Block")
+            {
+                Debug.Log(hit.collider.tag);
+                Destroy (hit.collider.gameObject);
+                //inventory.AddItem (3);
+            }
+        }
+    }
 
-//private void ToggleInventory() {
-//	if (Input.GetKeyDown (KeyCode.Tab)) {
-//		inventory.shown = !inventory.shown;
-//		allowEdit = !allowEdit;
-//	}
-//}
+    //private void Shoot(Item item) {
+    //       if (item.itemType == Item.ItemType.Weapon)
+    //       {
+    //           switch (item.itemDesc)
+    //           {
+    //               case "hitscan":
+    //                   RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+    //                   if (hit.transform != null && hit.transform.CompareTag("Hostile"))
+    //                   {
+    //                       try
+    //                       {
+    //                           hit.transform.GetComponent<ZombieController>().TakeDamage(5);
+    //                       }
+    //                       catch (System.Exception)
+    //                       {
+    //                           Debug.Log("wtf");
+    //                       }
+    //                   }
+    //                   break;
+    //               case "projectile":
+    //                   Vector3 bulletPosition = new Vector3(GetComponent<Rigidbody2D>().transform.position.x, GetComponent<Rigidbody2D>().transform.position.y, 0);
+    //                   Instantiate(bullet, bulletPosition, Quaternion.identity);
+    //                   break;
+    //               default:
+    //                   break;
+    //           }
+    //       }
+    //   }
 
-void OnTriggerEnter2D(Collider2D other)
+    //private void ToggleInventory() {
+    //	if (Input.GetKeyDown (KeyCode.Tab)) {
+    //		inventory.shown = !inventory.shown;
+    //		allowEdit = !allowEdit;
+    //	}
+    //}
+
+    void OnTriggerEnter2D(Collider2D other)
 {
     if (other.gameObject.tag.Equals("Hostile"))
     {

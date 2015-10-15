@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class BaseItem {
-
-	private string name, desc;
-	private int ID;
-	private ItemType type;
 
 	public enum ItemType {
 		Weapon,
@@ -16,27 +13,11 @@ public class BaseItem {
 		Building
 	}
     
-    public string itemName
-    {
-        get { return name; }
-        set { name = value; }
-    }
+    public string itemName { get; set; }
 
-    public string itemDescription
-    {
-        get { return desc; }
-        set { desc = value; }
-    }
+    public string itemDescription { get; set; }
 
-    public int itemID
-    {
-        get { return ID; }
-        set { ID = value; }
-    }
+    public int itemID { get; set; }
 
-    public ItemType itemType
-    {
-        get { return type; }
-        set { type = value; }
-    }
+    public ItemType itemType { get; set; }
 }
