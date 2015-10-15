@@ -22,13 +22,21 @@ public class PlayerController : MonoBehaviour {
     public float shootCooldown = 10f;
     private float shootCooldownCount = 0;
 
+    private GameObject weapon;
+    private LineRenderer lineRenderer;
+
+    public float blinkCooldown = 5f;
+    private float blinkCooldownCount = 0;
+
 	public Vector3 rotation;
 	
 	//Inventory inventory;
 
 	// Use this for initialization
 	void Start () {
-		//inventory = GameObject.FindGameObjectWithTag ("Inventory").GetComponent<Inventory>();
+        weapon = GameObject.FindGameObjectWithTag("Weapon");
+        lineRenderer = weapon.GetComponentInChildren<LineRenderer>();
+        //inventory = GameObject.FindGameObjectWithTag ("Inventory").GetComponent<Inventory>();
 	}
 	
 	// Update is called once per frame
@@ -38,6 +46,11 @@ public class PlayerController : MonoBehaviour {
 			rotatePlayer ();
 			toggleMouseMode ();
 			//ToggleInventory ();
+
+            if(blinkCooldownCount >= blinkCooldown)
+            {
+                lineRenderer.enabled = false;
+            }
 
             if (Input.GetMouseButton(1))
             {
@@ -53,14 +66,17 @@ public class PlayerController : MonoBehaviour {
                 {
                     if (shootCooldownCount > shootCooldown)
                     {
+                        Shoot();
                         //Shoot(inventory.getEquippedItem());
                         //Shoot(new Item("test", 1, "projectile", 0, 0, 0, Item.ItemType.Weapon));
                         shootCooldownCount = 0;
+                        blinkCooldownCount = 0;
                     }
                 }
             }
             blockCooldownCount += 1f;
             shootCooldownCount += 1f;
+            blinkCooldownCount += 1f;
         } else {
 		}
 	}
@@ -113,6 +129,35 @@ public class PlayerController : MonoBehaviour {
 		//}
 }
 
+    private void Shoot()
+    {
+        RaycastHit2D hit;
+        if (hit = Physics2D.Raycast(weapon.transform.position, weapon.transform.right))
+        {
+            if (hit.collider)
+            {
+                lineRenderer.SetPosition(1, new Vector3(hit.distance, 0, 0));
+                if (hit.transform.CompareTag("Hostile"))
+                {
+                    try
+                    {
+                        hit.transform.GetComponent<ZombieController>().TakeDamage(5);
+                    }
+                    catch
+                    {
+                        Debug.Log("WTF");
+                    }
+                }
+            }
+            else
+            {
+                lineRenderer.SetPosition(1, new Vector3(0, 0, 5000));
+            }
+        }
+
+        lineRenderer.enabled = true;
+        
+    }
 //private void Shoot(Item item) {
 //       if (item.itemType == Item.ItemType.Weapon)
 //       {

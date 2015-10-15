@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 411096}
   - 61: {fileID: 6140376}
   - 114: {fileID: 11422642}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Mob Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,6 +69,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: cooldown
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
