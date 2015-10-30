@@ -30,21 +30,7 @@ public class CreateRandomConsumerable : MonoBehaviour {
 
     private void ChooseConsumerableType()
     {
-        int random = Random.Range(1, 4);
-
-        switch(random)
-        {
-            case 1:
-                newConsumerable.consumerableType = BaseConsumerable.ConsumerableType.Drink;
-                break;
-            case 2:
-                newConsumerable.consumerableType = BaseConsumerable.ConsumerableType.Potion;
-                break;
-            case 3:
-                newConsumerable.consumerableType = BaseConsumerable.ConsumerableType.Food;
-                break;
-            default:
-                break;
-        }
+        System.Array consumerables = System.Enum.GetValues(typeof(BaseConsumerable.ConsumerableType));
+        newConsumerable.consumerableType = (BaseConsumerable.ConsumerableType)consumerables.GetValue(Random.Range(0, consumerables.Length));
     }
 }

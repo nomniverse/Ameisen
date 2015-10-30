@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ItemDatabase>
+  <Item>
+    <ItemName>Test Item 1</ItemName>
+    <ItemDescription>Swag Swag</ItemDescription>
+    <ItemID>1</ItemID>
+    <ItemType>Weapon</ItemType>
+    <ItemStamina>0</ItemStamina>
+    <ItemEndurance>0</ItemEndurance>
+    <ItemStrength>0</ItemStrength>
+    <ItemIntelligence>0</ItemIntelligence>
+  </Item>
+
+  <Item>
+    <ItemName>Test Item 2</ItemName>
+    <ItemDescription>Gucci Gucci</ItemDescription>
+    <ItemID>2</ItemID>
+    <ItemType>Weapon</ItemType>
+    <ItemStamina>0</ItemStamina>
+    <ItemEndurance>0</ItemEndurance>
+    <ItemStrength>0</ItemStrength>
+    <ItemIntelligence>0</ItemIntelligence>
+  </Item>
+</ItemDatabase>

@@ -31,33 +31,16 @@ public class CreateRandomEquipment : MonoBehaviour {
         ChooseEquipmentType();
 
         // Stat assignment
-        newEquipment.classStamina = Random.Range(1, 11);
-        newEquipment.classEndurance = Random.Range(1, 11);
-        newEquipment.classIntelligence = Random.Range(1, 11);
-        newEquipment.classStrength = Random.Range(1, 11);
+        newEquipment.staminaModifier = Random.Range(1, 11);
+        newEquipment.enduranceModifier = Random.Range(1, 11);
+        newEquipment.intelligenceModifier = Random.Range(1, 11);
+        newEquipment.strengthModifier = Random.Range(1, 11);
         newEquipment.spellEffectID = Random.Range(1, 101);
     }
 
     private void ChooseEquipmentType()
     {
-        int random = Random.Range(1, 5);
-
-        switch (random)
-        {
-            case 1:
-                newEquipment.equipmentType = BaseEquipment.EquipmentType.Head;
-                break;
-            case 2:
-                newEquipment.equipmentType = BaseEquipment.EquipmentType.Chest;
-                break;
-            case 3:
-                newEquipment.equipmentType = BaseEquipment.EquipmentType.Legs;
-                break;
-            case 4:
-                newEquipment.equipmentType = BaseEquipment.EquipmentType.Feet;
-                break;
-            default:
-                break;
-        }
+        System.Array equipments = System.Enum.GetValues(typeof(BaseEquipment.EquipmentType));
+        newEquipment.equipmentType = (BaseEquipment.EquipmentType)equipments.GetValue(Random.Range(0, equipments.Length));
     }
 }

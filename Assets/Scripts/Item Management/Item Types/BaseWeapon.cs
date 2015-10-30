@@ -2,7 +2,7 @@
 using System.Collections;
 
 [System.Serializable]
-public class BaseWeapon : BaseStatItem {
+public class BaseWeapon : BaseItem {
 
 	public enum WeaponType
     {

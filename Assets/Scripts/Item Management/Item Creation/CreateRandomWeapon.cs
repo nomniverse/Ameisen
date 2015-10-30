@@ -31,27 +31,16 @@ public class CreateRandomWeapon : MonoBehaviour {
         ChooseWeaponType();
 
         // Stat assignment
-        newWeapon.classStamina = Random.Range(1, 11);
-        newWeapon.classEndurance = Random.Range(1, 11);
-        newWeapon.classIntelligence = Random.Range(1, 11);
-        newWeapon.classStrength = Random.Range(1, 11);
+        newWeapon.staminaModifier = Random.Range(1, 11);
+        newWeapon.enduranceModifier = Random.Range(1, 11);
+        newWeapon.intelligenceModifier = Random.Range(1, 11);
+        newWeapon.strengthModifier = Random.Range(1, 11);
         newWeapon.spellEffectID = Random.Range(1, 101);
     }
 
     private void ChooseWeaponType()
     {
-        int random = Random.Range(1, 3);
-        
-        switch (random)
-        {
-            case 1:
-                newWeapon.weaponType = BaseWeapon.WeaponType.Melee;
-                break;
-            case 2:
-                newWeapon.weaponType = BaseWeapon.WeaponType.Ranged;
-                break;
-            default:
-                break;
-        }
+        System.Array weapons = System.Enum.GetValues(typeof(BaseWeapon.WeaponType));
+        newWeapon.weaponType = (BaseWeapon.WeaponType)weapons.GetValue(Random.Range(0, weapons.Length));
     }
 }

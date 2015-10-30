@@ -29,6 +29,7 @@ GameObject:
   - 50: {fileID: 5087046}
   - 58: {fileID: 5827092}
   - 58: {fileID: 5815312}
+  - 114: {fileID: 11436312}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -132,6 +133,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: .629999995
+--- !u!114 &11436312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5fcbaac9533314bac0a9ccd8a0a944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInventory: {fileID: 4900000, guid: 881cbcfa9be160649a818ba9b95de571, type: 3}
 --- !u!114 &11457806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,12 +159,12 @@ MonoBehaviour:
   playerEnabled: 1
   playerHealth: 100
   speed: 4
-  blockCooldown: 10
+  buildCooldown: 10
+  shootCooldown: 10
+  destroyCooldown: 10
   blockToPlace: {fileID: 100000, guid: 9456484702dfa8f489eee109318ebd6d, type: 2}
-  destroyable: {fileID: 100000, guid: 9456484702dfa8f489eee109318ebd6d, type: 2}
   allowEdit: 0
   bullet: {fileID: 120028, guid: 6c4fc62ca162bd547be8f381b9d0472c, type: 2}
-  shootCooldown: 10
   blinkCooldown: 5
   rotation: {x: 0, y: 0, z: 0}
 --- !u!120 &12083984
@@ -254,6 +267,10 @@ Prefab:
       propertyPath: allowEdit
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itemInventory
+      value: 
+      objectReference: {fileID: 4900000, guid: 881cbcfa9be160649a818ba9b95de571, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 142666}
