@@ -27,7 +27,10 @@ public class BaseItem {
         itemID = int.Parse(dictionary["ItemID"]);
         itemType = (ItemType) System.Enum.Parse(typeof(ItemType), dictionary["ItemType"]);
 
-        staminaModifier = int.Parse(dictionary["ItemStamina"]);
+        staminaModifier = int.Parse(dictionary["StaminaModifier"]);
+        enduranceModifier = int.Parse(dictionary["EnduranceModifier"]);
+        strengthModifier = int.Parse(dictionary["StrengthModifier"]);
+        intelligenceModifier = int.Parse(dictionary["IntelligenceModifier"]);
     }
 
     public string itemName { get; set; }

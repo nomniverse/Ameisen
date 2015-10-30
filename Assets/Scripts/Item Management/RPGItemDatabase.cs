@@ -46,20 +46,7 @@ public class RPGItemDatabase : MonoBehaviour {
 
             foreach(XmlNode content in itemContent)
             {
-                switch(content.Name)
-                {
-                    case "ItemName":
-                        inventoryDictionary.Add("ItemName", content.InnerText);
-                        break;
-                    case "ItemID":
-                        inventoryDictionary.Add("ItemID", content.InnerText);
-                        break;
-                    case "ItemType":
-                        inventoryDictionary.Add("ItemType", content.InnerText);
-                        break;
-                    default:
-                        break;
-                }
+                inventoryDictionary.Add(content.Name, content.InnerText);
             }
 
             inventoryItemsDictionary.Add(inventoryDictionary);

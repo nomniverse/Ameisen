@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
 
 public class CreateNewPlayer : MonoBehaviour {
 
@@ -54,19 +55,19 @@ public class CreateNewPlayer : MonoBehaviour {
         GameInformation.PlayerLevel = newPlayer.playerLevel;
 
         // Stats
-        GameInformation.PlayerStamina = newPlayer.playerStamina;
-        GameInformation.PlayerEndurance = newPlayer.playerEndurance;
-        GameInformation.PlayerIntelligence = newPlayer.playerIntelligence;
-        GameInformation.PlayerStrength = newPlayer.playerStrength;
+        GameInformation.PlayerStamina = newPlayer.playerStats[Constants.STAMINA_INDEX].statModifiedValue;
+        GameInformation.PlayerEndurance = newPlayer.playerStats[Constants.ENDURANCE_INDEX].statModifiedValue;
+        GameInformation.PlayerIntelligence = newPlayer.playerStats[Constants.INTELLIGENCE_INDEX].statModifiedValue;
+        GameInformation.PlayerStrength = newPlayer.playerStats[Constants.STRENGTH_INDEX].statModifiedValue;
     }
 
     private void SetNewPlayerStats()
     {
         newPlayer.playerLevel = 1;
-        newPlayer.playerStamina = newPlayer.playerClass.classStamina;
-        newPlayer.playerEndurance = newPlayer.playerClass.classEndurance;
-        newPlayer.playerIntelligence = newPlayer.playerClass.classIntelligence;
-        newPlayer.playerStrength = newPlayer.playerClass.classStrength;
+        newPlayer.playerStats[Constants.STAMINA_INDEX].statModifiedValue = newPlayer.playerClass.classStamina;
+        newPlayer.playerStats[Constants.ENDURANCE_INDEX].statModifiedValue = newPlayer.playerClass.classEndurance;
+        newPlayer.playerStats[Constants.INTELLIGENCE_INDEX].statModifiedValue = newPlayer.playerClass.classIntelligence;
+        newPlayer.playerStats[Constants.STRENGTH_INDEX].statModifiedValue = newPlayer.playerClass.classStrength;
         newPlayer.playerName = playerName;
     }
 }
