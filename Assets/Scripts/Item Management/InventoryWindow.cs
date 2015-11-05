@@ -17,17 +17,56 @@ public class InventoryWindow : MonoBehaviour {
 
     private List<GameObject> inventorySlots;
     private List<BaseItem> playerInventory;
+    private string slotName;
 
-	// Use this for initialization
-	void Start () {
+    public GameObject draggedIcon;
+    public BaseItem itemBeingDragged;
+    public bool beingDragged = false;
+    private const int mousePosOffset = 30;
+
+    // Use this for initialization
+    void Start () {
         CreateInventorySlotsInWindow();
         AddItemsFromInventory();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+	    if (beingDragged)
+        {
+            Vector3 mousePos = Input.mousePosition - GameObject.FindGameObjectWithTag("Canvas").GetComponent<RectTransform>().localPosition;
+            draggedIcon.GetComponent<RectTransform>().localPosition = new Vector3(mousePos.x + mousePosOffset, mousePos.y - mousePosOffset, mousePos.z);
+        }
 	}
+
+    public void ShowDraggedItem(string name)
+    {
+        slotName = name;
+        draggedIcon.SetActive(true);
+        beingDragged = true;
+        itemBeingDragged = playerInventory[int.Parse(name)];
+        draggedIcon.GetComponent<Image>().sprite = GetItemIcon(itemBeingDragged);
+    }
+
+    public string AddItemToSlot(GameObject slot)
+    {
+        slot.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = GetItemIcon(playerInventory[int.Parse(slotName)]);
+        draggedIcon.SetActive(false);
+        itemBeingDragged = null;
+        beingDragged = false;
+
+        return slotName;
+    }
+
+    public void SwapItem(GameObject slot)
+    {
+        BaseItem swapItem = playerInventory[int.Parse(slot.name)];
+        slot.transform.GetChild(0).GetComponent<Image>().sprite = GetItemIcon(itemBeingDragged);
+        slot.name = slotName;
+        itemBeingDragged = swapItem;
+        draggedIcon.GetComponent<Image>().sprite = GetItemIcon(itemBeingDragged);
+        slotName = playerInventory.FindIndex(x => x == itemBeingDragged).ToString();
+    }
 
     private void CreateInventorySlotsInWindow()
     {
