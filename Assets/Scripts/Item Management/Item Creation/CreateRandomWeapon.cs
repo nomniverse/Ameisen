@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
 
 public class CreateRandomWeapon : MonoBehaviour {
 
@@ -31,10 +32,10 @@ public class CreateRandomWeapon : MonoBehaviour {
         ChooseWeaponType();
 
         // Stat assignment
-        newWeapon.staminaModifier = Random.Range(1, 11);
-        newWeapon.enduranceModifier = Random.Range(1, 11);
-        newWeapon.intelligenceModifier = Random.Range(1, 11);
-        newWeapon.strengthModifier = Random.Range(1, 11);
+        newWeapon.itemStats[Constants.STAMINA_INDEX].statBaseValue = Random.Range(1, 11);
+        newWeapon.itemStats[Constants.ENDURANCE_INDEX].statBaseValue = Random.Range(1, 11);
+        newWeapon.itemStats[Constants.STRENGTH_INDEX].statBaseValue = Random.Range(1, 11);
+        newWeapon.itemStats[Constants.INTELLIGENCE_INDEX].statBaseValue = Random.Range(1, 11);
         newWeapon.spellEffectID = Random.Range(1, 101);
     }
 

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
 
 public class CreateRandomEquipment : MonoBehaviour {
 
     private BaseEquipment newEquipment;
-
-    private string[] names = new string[4] { "Poor", "Common", "Special", "Godly" };
 
 	// Use this for initialization
 	void Start () {
@@ -25,16 +24,16 @@ public class CreateRandomEquipment : MonoBehaviour {
         newEquipment = new BaseEquipment();
 
         // Item info assignment
-        newEquipment.itemName = names[Random.Range(0, names.Length)] + " Equipment";
-        newEquipment.itemDescription = "Randomly generated weapon";
+        newEquipment.itemName = newEquipment.names[Random.Range(0, newEquipment.names.Length)] + " Equipment";
+        newEquipment.itemDescription = "Randomly generated equipment";
         newEquipment.itemID = Random.Range(1, 101);
         ChooseEquipmentType();
 
         // Stat assignment
-        newEquipment.staminaModifier = Random.Range(1, 11);
-        newEquipment.enduranceModifier = Random.Range(1, 11);
-        newEquipment.intelligenceModifier = Random.Range(1, 11);
-        newEquipment.strengthModifier = Random.Range(1, 11);
+        newEquipment.itemStats[Constants.STAMINA_INDEX].statBaseValue = Random.Range(1, 11);
+        newEquipment.itemStats[Constants.ENDURANCE_INDEX].statBaseValue = Random.Range(1, 11);
+        newEquipment.itemStats[Constants.STRENGTH_INDEX].statBaseValue = Random.Range(1, 11);
+        newEquipment.itemStats[Constants.INTELLIGENCE_INDEX].statBaseValue = Random.Range(1, 11);
         newEquipment.spellEffectID = Random.Range(1, 101);
     }
 

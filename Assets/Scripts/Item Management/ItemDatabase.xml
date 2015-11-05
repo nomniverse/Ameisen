@@ -22,4 +22,103 @@
     <StrengthModifier>0</StrengthModifier>
     <IntelligenceModifier>0</IntelligenceModifier>
   </Item>
+
+  <Item>
+    <ItemName>Test Item 3</ItemName>
+    <ItemDescription>Swag Swag</ItemDescription>
+    <ItemID>1</ItemID>
+    <ItemType>Weapon</ItemType>
+    <StaminaModifier>0</StaminaModifier>
+    <EnduranceModifier>0</EnduranceModifier>
+    <StrengthModifier>0</StrengthModifier>
+    <IntelligenceModifier>0</IntelligenceModifier>
+  </Item>
+
+  <Item>
+    <ItemName>Test Item 4</ItemName>
+    <ItemDescription>Gucci Gucci</ItemDescription>
+    <ItemID>2</ItemID>
+    <ItemType>Weapon</ItemType>
+    <StaminaModifier>0</StaminaModifier>
+    <EnduranceModifier>0</EnduranceModifier>
+    <StrengthModifier>0</StrengthModifier>
+    <IntelligenceModifier>0</IntelligenceModifier>
+  </Item>
+
+  <Item>
+    <ItemName>Test Item 5</ItemName>
+    <ItemDescription>Swag Swag</ItemDescription>
+    <ItemID>1</ItemID>
+    <ItemType>Weapon</ItemType>
+    <StaminaModifier>0</StaminaModifier>
+    <EnduranceModifier>0</EnduranceModifier>
+    <StrengthModifier>0</StrengthModifier>
+    <IntelligenceModifier>0</IntelligenceModifier>
+  </Item>
+
+  <Item>
+    <ItemName>Test Item 6</ItemName>
+    <ItemDescription>Gucci Gucci</ItemDescription>
+    <ItemID>2</ItemID>
+    <ItemType>Weapon</ItemType>
+    <StaminaModifier>0</StaminaModifier>
+    <EnduranceModifier>0</EnduranceModifier>
+    <StrengthModifier>0</StrengthModifier>
+    <IntelligenceModifier>0</IntelligenceModifier>
+  </Item>
+
+  <Item>
+    <ItemName>Test Item 7</ItemName>
+    <ItemDescription>Swag Swag</ItemDescription>
+    <ItemID>1</ItemID>
+    <ItemType>Weapon</ItemType>
+    <StaminaModifier>0</StaminaModifier>
+    <EnduranceModifier>0</EnduranceModifier>
+    <StrengthModifier>0</StrengthModifier>
+    <IntelligenceModifier>0</IntelligenceModifier>
+  </Item>
+
+  <Item>
+    <ItemName>Test Item 8</ItemName>
+    <ItemDescription>Gucci Gucci</ItemDescription>
+    <ItemID>2</ItemID>
+    <ItemType>Weapon</ItemType>
+    <StaminaModifier>0</StaminaModifier>
+    <EnduranceModifier>0</EnduranceModifier>
+    <StrengthModifier>0</StrengthModifier>
+    <IntelligenceModifier>0</IntelligenceModifier>
+  </Item>
+  
+  <Item>
+    <ItemName>Test Item 9</ItemName>
+    <ItemDescription>Swag Swag</ItemDescription>
+    <ItemID>1</ItemID>
+    <ItemType>Weapon</ItemType>
+    <StaminaModifier>0</StaminaModifier>
+    <EnduranceModifier>0</EnduranceModifier>
+    <StrengthModifier>0</StrengthModifier>
+    <IntelligenceModifier>0</IntelligenceModifier>
+  </Item>
+
+  <Item>
+    <ItemName>Test Item 10</ItemName>
+    <ItemDescription>Gucci Gucci</ItemDescription>
+    <ItemID>2</ItemID>
+    <ItemType>Weapon</ItemType>
+    <StaminaModifier>0</StaminaModifier>
+    <EnduranceModifier>0</EnduranceModifier>
+    <StrengthModifier>0</StrengthModifier>
+    <IntelligenceModifier>0</IntelligenceModifier>
+  </Item>
+
+  <Item>
+    <ItemName>Test Item 11</ItemName>
+    <ItemDescription>Gucci Gucci</ItemDescription>
+    <ItemID>2</ItemID>
+    <ItemType>Weapon</ItemType>
+    <StaminaModifier>0</StaminaModifier>
+    <EnduranceModifier>0</EnduranceModifier>
+    <StrengthModifier>0</StrengthModifier>
+    <IntelligenceModifier>0</IntelligenceModifier>
+  </Item>
 </ItemDatabase>

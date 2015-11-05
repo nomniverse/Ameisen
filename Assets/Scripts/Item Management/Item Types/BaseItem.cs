@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
 public class BaseItem {
+
+    public string[] names = new string[4] { "Poor", "Common", "Special", "Godly" };
 
     public enum ItemType
     {
@@ -17,7 +20,8 @@ public class BaseItem {
 
     public BaseItem()
     {
-
+        itemName = "Item " + Random.Range(0, 101);
+        itemDescription = "Randomly generated item";
     }
 
     public BaseItem(Dictionary<string,string> dictionary)
@@ -27,10 +31,10 @@ public class BaseItem {
         itemID = int.Parse(dictionary["ItemID"]);
         itemType = (ItemType) System.Enum.Parse(typeof(ItemType), dictionary["ItemType"]);
 
-        staminaModifier = int.Parse(dictionary["StaminaModifier"]);
-        enduranceModifier = int.Parse(dictionary["EnduranceModifier"]);
-        strengthModifier = int.Parse(dictionary["StrengthModifier"]);
-        intelligenceModifier = int.Parse(dictionary["IntelligenceModifier"]);
+        itemStats[Constants.STAMINA_INDEX].statBaseValue = int.Parse(dictionary["StaminaModifier"]);
+        itemStats[Constants.ENDURANCE_INDEX].statBaseValue = int.Parse(dictionary["EnduranceModifier"]);
+        itemStats[Constants.STRENGTH_INDEX].statBaseValue = int.Parse(dictionary["StrengthModifier"]);
+        itemStats[Constants.INTELLIGENCE_INDEX].statBaseValue = int.Parse(dictionary["IntelligenceModifier"]);
     }
 
     public string itemName { get; set; }
@@ -39,13 +43,7 @@ public class BaseItem {
 
     public int itemID { get; set; }
 
+    public BaseStat[] itemStats = { new BaseStamina(), new BaseEndurance(), new BaseStrength(), new BaseEndurance() };
+
     public ItemType itemType { get; set; }
-
-    public int staminaModifier { get; set; }
-
-    public int enduranceModifier { get; set; }
-
-    public int strengthModifier { get; set; }
-
-    public int intelligenceModifier { get; set; }
 }
