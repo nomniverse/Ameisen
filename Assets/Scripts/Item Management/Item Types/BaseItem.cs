@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,8 @@ public class BaseItem {
 
     public BaseItem()
     {
-        itemName = "Item " + Random.Range(0, 101);
+        System.Random random = new System.Random();
+        itemName = "Item " + random.Next(0, 101);
         itemDescription = "Randomly generated item";
     }
 

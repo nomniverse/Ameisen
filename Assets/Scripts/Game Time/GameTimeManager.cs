@@ -4,7 +4,7 @@ using System.Collections;
 public class GameTimeManager : MonoBehaviour {
 
     public int gameDayLengthMins;
-    private int gameDayLengthSecs;
+    private int gameDayLengthSecs = 120000;
     private int currentGameTime;
 
     private bool isRunning = true;

@@ -4,33 +4,22 @@ using System.Collections.Generic;
 using System.Xml;
 using System.IO;
 
-public class RPGItemDatabase : MonoBehaviour {
+public class RPGItemDatabase {
 
     public TextAsset itemInventory;
-    public static List<BaseItem> inventoryItems = new List<BaseItem>();
+    public List<BaseItem> inventoryItems = new List<BaseItem>();
 
     private List<Dictionary<string, string>> inventoryItemsDictionary = new List<Dictionary<string, string>>();
     private Dictionary<string, string> inventoryDictionary;
-
-    // Use this for initialization
-    void Start () {
+    
+    public RPGItemDatabase()
+    {
         
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
-    void Awake()
+    public void LoadXML()
     {
-        ReadItemFromDatabase();
-
-        for (int i = 0; i < inventoryItemsDictionary.Count; i++)
-        {
-            inventoryItems.Add(new BaseItem(inventoryItemsDictionary[i]));
-            Debug.Log(inventoryItems[i].itemName);
-        }
+        itemInventory = Resources.Load<TextAsset>("XML/ItemDatabase");
     }
 
     public void ReadItemFromDatabase()
@@ -50,6 +39,12 @@ public class RPGItemDatabase : MonoBehaviour {
             }
 
             inventoryItemsDictionary.Add(inventoryDictionary);
+        }
+
+        for (int i = 0; i < inventoryItemsDictionary.Count; i++)
+        {
+            inventoryItems.Add(new BaseItem(inventoryItemsDictionary[i]));
+            Debug.Log(inventoryItems[i].itemName);
         }
     }
 }

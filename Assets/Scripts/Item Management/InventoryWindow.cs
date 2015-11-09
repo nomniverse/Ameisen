@@ -4,14 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class InventoryWindow : MonoBehaviour {
-
+    
     public int startingPosX, startingPosY;
     public int slotCountPerPage, slotCountLength;
 
     public GameObject itemSlotPrefab;
     public ToggleGroup itemSlotToggleGroup;
 
-    private int xPos, yPos;
+    private int xPos, yPos, xPosOriginal;
     private GameObject itemSlot;
     private int itemSlotCount;
 
@@ -24,14 +24,22 @@ public class InventoryWindow : MonoBehaviour {
     public bool beingDragged = false;
     private const int mousePosOffset = 30;
 
+    private bool inventoryUpdated = true;
+
     // Use this for initialization
     void Start () {
         CreateInventorySlotsInWindow();
         AddItemsFromInventory();
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
+        if (inventoryUpdated)
+        {
+            AddItemsFromInventory();
+            inventoryUpdated = false;
+        }
+
 	    if (beingDragged)
         {
             Vector3 mousePos = Input.mousePosition - GameObject.FindGameObjectWithTag("Canvas").GetComponent<RectTransform>().localPosition;
@@ -72,7 +80,7 @@ public class InventoryWindow : MonoBehaviour {
     {
         inventorySlots = new List<GameObject>();
 
-        xPos = startingPosX;
+        xPosOriginal = xPos = startingPosX;
         yPos = startingPosY;
 
         for (int i = 0; i < slotCountPerPage; i++)
@@ -89,16 +97,17 @@ public class InventoryWindow : MonoBehaviour {
             {
                 itemSlotCount = 0;
                 yPos -= (int)itemSlot.GetComponent<RectTransform>().rect.width;
-                xPos = startingPosX;
+                xPos = xPosOriginal;
             }
 
             inventorySlots.Add(itemSlot);
         }
     }
-
+    
     private void AddItemsFromInventory()
     {
         BasePlayer basePlayerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<BasePlayer>();
+
         playerInventory = basePlayerScript.GetPlayerInventory();
 
         Debug.Log(playerInventory.Count);
